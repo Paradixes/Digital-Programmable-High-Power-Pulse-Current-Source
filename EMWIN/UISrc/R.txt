@@ -1,0 +1,38 @@
+/*
+----------------------------------------------------------------------
+File        : Resource.h
+Content     : Main resource header file of weather forecast demo
+---------------------------END-OF-HEADER------------------------------
+*/
+
+#ifndef RESOURCE_H
+#define RESOURCE_H
+#include "sys.h"
+#include "GUI.h"
+
+#ifndef GUI_CONST_STORAGE
+  #define GUI_CONST_STORAGE const
+#endif
+
+//
+// Fonts
+//
+extern GUI_CONST_STORAGE GUI_FONT GUI_Font23S_AA4;
+extern GUI_CONST_STORAGE GUI_FONT GUI_Font23SL_AA4;
+extern GUI_CONST_STORAGE GUI_FONT GUI_Font32S_AA4;
+extern GUI_CONST_STORAGE GUI_FONT GUI_Font32SL_AA4;
+
+//
+// Images
+//
+extern GUI_CONST_STORAGE GUI_BITMAP bmTemperatureControlSegger800x480;
+extern GUI_CONST_STORAGE GUI_BITMAP bmButtonRound_80x35;
+extern GUI_CONST_STORAGE GUI_BITMAP bmButtonRoundPressed_80x35;
+extern GUI_CONST_STORAGE GUI_BITMAP bmSeggerLogo_60x30;
+extern GUI_CONST_STORAGE GUI_BITMAP bmKNOB_175x175;
+extern GUI_CONST_STORAGE GUI_BITMAP bmButtonON_110x40;
+extern GUI_CONST_STORAGE GUI_BITMAP bmButtonOFF_110x40;
+
+#endif // RESOURCE_H
+
+/*************************** End of file ****************************/
