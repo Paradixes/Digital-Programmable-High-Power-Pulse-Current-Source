@@ -3,6 +3,6 @@
 #include "sys.h"
 #include "GUI.h"
 
-void MainTask(void);
+void GUIMainTask(void);
 
 #endif

@@ -1,91 +1,58 @@
 #include "spi.h"
-/*
-input:BaudRatePrescaler
-#define SPI_BaudRatePrescaler_2         ((uint16_t)0x0000)
-#define SPI_BaudRatePrescaler_4         ((uint16_t)0x0008)
-#define SPI_BaudRatePrescaler_8         ((uint16_t)0x0010)
-#define SPI_BaudRatePrescaler_16        ((uint16_t)0x0018)
-#define SPI_BaudRatePrescaler_32        ((uint16_t)0x0020)
-#define SPI_BaudRatePrescaler_64        ((uint16_t)0x0028)
-#define SPI_BaudRatePrescaler_128       ((uint16_t)0x0030)
-#define SPI_BaudRatePrescaler_256       ((uint16_t)0x0038)
-*/
-void Spi1_Int(uint16_t BaudRatePrescaler)
-{
-	GPIO_InitTypeDef GPIO_spix;
-	SPI_InitTypeDef  SPI_X;
-	
-	RCC_APB2PeriphClockCmd(	RCC_APB2Periph_GPIOA|RCC_APB2Periph_SPI1, ENABLE );	
-	/**GPIO_Pin_5-SCK******GPIO_Pin_6-MISO*****GPIO_Pin_7-MOSI******/
-	GPIO_spix.GPIO_Pin=GPIO_Pin_5 | GPIO_Pin_6 | GPIO_Pin_7;
-	GPIO_spix.GPIO_Mode=GPIO_Mode_AF_PP;
-	GPIO_spix.GPIO_Speed=GPIO_Speed_10MHz;
-	GPIO_Init(GPIOA, &GPIO_spix);
-	GPIO_SetBits(GPIOA,GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
-	/*A2-NSS*/
-	GPIO_spix.GPIO_Pin=GPIO_Pin_2|GPIO_Pin_3;
-	GPIO_spix.GPIO_Mode=GPIO_Mode_Out_PP;
-	GPIO_spix.GPIO_Speed=GPIO_Speed_10MHz;
-	GPIO_Init(GPIOA, &GPIO_spix);
-	GPIO_SetBits(GPIOA,GPIO_Pin_2|GPIO_Pin_3);
-	
-	SPI_X.SPI_Direction=SPI_Direction_2Lines_FullDuplex;//双线双向全双工
-	SPI_X.SPI_Mode=SPI_Mode_Master;//主模式
-	SPI_X.SPI_DataSize=SPI_DataSize_8b;//数据位大小8位
-	SPI_X.SPI_CPOL=SPI_CPOL_High;//时钟极性，空闲时时钟为高电平
-	SPI_X.SPI_CPHA=SPI_CPHA_2Edge;//时钟相位，在时钟的第2个跳变沿采集数据
-	SPI_X.SPI_NSS=SPI_NSS_Soft;//NSS信号由软件产生 
-	SPI_X.SPI_BaudRatePrescaler=BaudRatePrescaler;//256分频波特率，RCC_APB2=72M，72M/256=281.25KHz
-	SPI_X.SPI_FirstBit=SPI_FirstBit_MSB;//数据高位在前
-	SPI_X.SPI_CRCPolynomial=7;//CRC复位值
-	SPI_Init(SPI1, &SPI_X);
-	SPI_Cmd(SPI1, ENABLE);
-}
-//spi读写底层驱动
-//spi写过程，发送缓存寄存器数据--移位寄存器
-//spi读过程，移位寄存器数据--接收缓存寄存器
-//TxData：存入的数据
- u8 Spi_RW(u8 TxData)
-{		
-	
-  /*当发送缓存寄存器为空时置1，无须等待*/	
-	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_TXE) == RESET);
-				  
-	SPI_I2S_SendData(SPI1, TxData); //存入一个数据到发送缓存寄存器
 
- /*当接收缓存寄存器非空时置1，无须等待*/	
-	while (SPI_I2S_GetFlagStatus(SPI1, SPI_I2S_FLAG_RXNE) == RESET);
-	 						    
-	return SPI_I2S_ReceiveData(SPI1); //从接收缓存寄存器读取一个数据				    
-}
-//写数据
-/*
-add:寄存器地址
-*pBuf：写入的数据缓存
-num：写入的数据个数
-*/
-void Spi_write_buf(uint8_t add, uint8_t *pBuf, uint8_t num,uint16_t GPIO_Pin_X)
+void MX_SPI1_Init(void)
 {
-	uint8_t i=0;
-	GPIO_ResetBits(GPIOA,GPIO_Pin_X);//NSS拉低选择器件
-	Spi_RW(add);
-	while(i<num)
-	Spi_RW(pBuf[i++]);
-	GPIO_SetBits(GPIOA,GPIO_Pin_X);//NSS拉高释放器件
+    /* SPI1 parameter configuration*/
+    hspi1.Instance = SPI1;
+    hspi1.Init.Mode = SPI_MODE_MASTER;
+    hspi1.Init.Direction = SPI_DIRECTION_2LINES;
+    hspi1.Init.DataSize = SPI_DATASIZE_8BIT;
+    hspi1.Init.CLKPolarity = SPI_POLARITY_LOW;
+    hspi1.Init.CLKPhase = SPI_PHASE_1EDGE;
+    hspi1.Init.NSS = SPI_NSS_SOFT;
+    hspi1.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
+    hspi1.Init.FirstBit = SPI_FIRSTBIT_MSB;
+    hspi1.Init.TIMode = SPI_TIMODE_DISABLE;
+    hspi1.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+    hspi1.Init.CRCPolynomial = 0x0;
+    hspi1.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+    hspi1.Init.NSSPolarity = SPI_NSS_POLARITY_LOW;
+    hspi1.Init.FifoThreshold = SPI_FIFO_THRESHOLD_01DATA;
+    hspi1.Init.TxCRCInitializationPattern = SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN;
+    hspi1.Init.RxCRCInitializationPattern = SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN;
+    hspi1.Init.MasterSSIdleness = SPI_MASTER_SS_IDLENESS_00CYCLE;
+    hspi1.Init.MasterInterDataIdleness = SPI_MASTER_INTERDATA_IDLENESS_00CYCLE;
+    hspi1.Init.MasterReceiverAutoSusp = SPI_MASTER_RX_AUTOSUSP_DISABLE;
+    hspi1.Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_DISABLE;
+    hspi1.Init.IOSwap = SPI_IO_SWAP_DISABLE;
+    if (HAL_SPI_Init(&hspi1) != HAL_OK)
+    {
+        ;
+    }
 }
 
-//读数据
-/*
-add:寄存器地址
-*pBuf：读取缓存
-num：读取的数据个数
-*/
-void Spi_read_buf(uint8_t add, uint8_t *pBuf, uint8_t num,uint16_t GPIO_Pin_X)
+void MX_GPIO_Init(void)
 {
-	uint8_t i=0;
-	GPIO_ResetBits(GPIOA,GPIO_Pin_X);//NSS拉低选择器件
-	Spi_RW(add);
-	while(i<num)
-	pBuf[i++]=Spi_RW(0);
-	GPIO_SetBits(GPIOA,GPIO_Pin_X);//NSS拉高释放器件
+    GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+    /* GPIO Ports Clock Enable */
+    __HAL_RCC_SPI1_CLK_ENABLE();
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+
+    /*Configure GPIO pin Output Level */
+    HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_7, GPIO_PIN_RESET);
+
+    /*Configure GPIO pin : PA4 */
+    GPIO_InitStruct.Pin = GPIO_PIN_4;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    /*Configure GPIO pin : PA4 */
+    GPIO_InitStruct.Pin = GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+    GPIO_InitStruct.Alternate = GPIO_AF5_SPI1;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 }

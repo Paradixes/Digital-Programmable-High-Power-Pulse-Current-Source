@@ -16,8 +16,8 @@
         <TargetCommonOption>
           <Device>STM32H743IITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32H7xx_DFP.2.6.0</PackID>
-          <PackURL>https://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32H7xx_DFP.2.7.0</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IRAM2(0x24000000,0x00080000) IROM(0x08000000,0x00200000) CPUTYPE("Cortex-M7") FPU3(DFPU) CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER, STM32H743xx,ARM_MATH_CM7,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING,__FPU_PRESENT=1</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\USMART;..\MALLOC;..\HARDWARE\LED;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\SDRAM;..\HARDWARE\DMA;..\HARDWARE\24CXX;..\HARDWARE\IIC;..\HARDWARE\PCF8574;..\HARDWARE\QSPI;..\HARDWARE\W25QXX;..\HARDWARE\RS485;..\HARDWARE\TOUCH;..\HARDWARE\TIMER;..\HARDWARE\MPU;..\EMWIN\STemWin\inc;..\EMWIN\STemWin\Config;..\EMWIN\CurrentSupply;..\EMWIN\UISrc;..\DSPLIB\Include</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HALLIB\STM32H7xx_HAL_Driver\Inc;..\USMART;..\MALLOC;..\HARDWARE\LED;..\HARDWARE\KEY;..\HARDWARE\LCD;..\HARDWARE\SDRAM;..\HARDWARE\DMA;..\HARDWARE\24CXX;..\HARDWARE\IIC;..\HARDWARE\PCF8574;..\HARDWARE\QSPI;..\HARDWARE\W25QXX;..\HARDWARE\RS485;..\HARDWARE\TOUCH;..\HARDWARE\TIMER;..\HARDWARE\MPU;..\EMWIN\STemWin\inc;..\EMWIN\STemWin\Config;..\EMWIN\CurrentSupply;..\EMWIN\UISrc;..\DSPLIB\Include;..\HARDWARE\SPI</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -577,6 +577,16 @@
               <FileType>1</FileType>
               <FilePath>..\HALLIB\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma2d.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32h7xx_hal_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HALLIB\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_spi_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HALLIB\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi_ex.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -656,6 +666,11 @@
               <FileName>gt9271.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\TOUCH\gt9271.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\SPI\spi.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -837,8 +852,8 @@
         <TargetCommonOption>
           <Device>STM32H743IITx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32H7xx_DFP.2.6.0</PackID>
-          <PackURL>https://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32H7xx_DFP.2.7.0</PackID>
+          <PackURL>http://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000,0x00020000) IRAM2(0x24000000,0x00080000) IROM(0x08000000,0x00200000) CPUTYPE("Cortex-M7") FPU3(DFPU) CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -1398,6 +1413,16 @@
               <FileType>1</FileType>
               <FilePath>..\HALLIB\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma2d.c</FilePath>
             </File>
+            <File>
+              <FileName>stm32h7xx_hal_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HALLIB\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32h7xx_hal_spi_ex.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HALLIB\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi_ex.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1477,6 +1502,11 @@
               <FileName>gt9271.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\TOUCH\gt9271.c</FilePath>
+            </File>
+            <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\SPI\spi.c</FilePath>
             </File>
           </Files>
         </Group>

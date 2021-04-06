@@ -1,10 +1,13 @@
 #ifndef __SPI_H
 #define __SPI_H
-#include "stm32f10x.h"
-#define NCS GPIO_Pin_2
-#define CSB GPIO_Pin_3
-void Spi1_Int(uint16_t BaudRatePrescaler);
- u8 Spi_RW(u8 TxData);
-void Spi_write_buf(uint8_t add, uint8_t *pBuf, uint8_t num,uint16_t GPIO_Pin_X);
-void Spi_read_buf(uint8_t add, uint8_t *pBuf, uint8_t num,uint16_t GPIO_Pin_X);
+
+#include "stm32h7xx_hal.h"
+#include "stm32h7xx_hal_spi.h"
+//#include "stm32h7xx_hal_it.h"
+
+extern SPI_HandleTypeDef hspi1;
+
+void MX_SPI1_Init(void);
+void MX_GPIO_Init(void);
+
 #endif

@@ -1,0 +1,13 @@
+#ifndef __SPI_H
+#define __SPI_H
+#include "stm32h7xx.h"
+
+#define NCS GPIO_Pin_2
+#define CSB GPIO_Pin_3
+
+void SPI1_Init(uint16_t BaudRatePrescaler);
+u8 SPI_RW(u8 TxData);
+void SPI_write_buf(uint8_t add, uint8_t *pBuf, uint8_t num, uint16_t GPIO_Pin_X);
+void SPI_read_buf(uint8_t add, uint8_t *pBuf, uint8_t num, uint16_t GPIO_Pin_X);
+
+#endif
